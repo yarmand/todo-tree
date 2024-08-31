@@ -180,6 +180,7 @@ function removeLineComments( text, fileName )
     return result;
 }
 
+
 function getTagRegex()
 {
     var tags = config.tags().slice().sort().reverse();
@@ -192,6 +193,7 @@ function getTagRegex()
     tags = tags.join( '|' );
     return '(' + tags + ')';
 }
+
 
 function extractTag( text, matchOffset )
 {
@@ -260,6 +262,26 @@ function extractTag( text, matchOffset )
             tagOffset = match.index;
             text = after;
         }
+    }
+
+    const dateRegex = /\d{4}-\d{1,2}-\d{2}/;
+    let dateMatch = dateRegex.exec( text );
+    if (dateMatch) {
+        var dTag;
+        var tagDate = new Date(`${dateMatch[0]} 0:0:0`);
+        var today = new Date();
+        tagDate.setHours(0, 0, 0, 0);
+        today.setHours(0, 0, 0, 0);
+        if (tagDate < today) {
+            dTag = "0-OVERDUE";
+        } else if (tagDate.toDateString() === today.toDateString()) {
+            dTag = "1-TODAY";
+        } else if (tagDate < new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7)) {
+            dTag = "2-THIS_WEEK";
+        } else {
+            dTag = "3-FUTURE";
+        }
+        originalTag = dTag;
     }
     return {
         tag: tagMatch ? originalTag : "",

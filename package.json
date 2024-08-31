@@ -23,8 +23,8 @@
     "scripts": {
         "test": "qunit",
         "vscode:prepublish": "node ./buildCodiconNames.js && webpack --mode production",
-        "webpack": "webpack --mode development",
-        "webpack-dev": "webpack --mode development --watch"
+        "webpack": "NODE_OPTIONS=--openssl-legacy-provider webpack --mode development",
+        "webpack-dev": "NODE_OPTIONS=--openssl-legacy-provider webpack --mode development --watch"
     },
     "categories": [
         "Other"
@@ -606,6 +606,10 @@
                     },
                     "todo-tree.general.tags": {
                         "default": [
+                            "0-OVERDUE",
+                            "1-TODAY",
+                            "2-THIS_WEEK",
+                            "3-FUTURE",
                             "BUG",
                             "HACK",
                             "FIXME",
@@ -634,6 +638,18 @@
                 "properties": {
                     "todo-tree.highlights.customHighlight": {
                         "default": {
+                            "OVERDUE": {
+                                "icon": "issue-draft"
+                            },
+                            "TODAY": {
+                                "icon": "issue-draft"
+                            },
+                            "THIS_WEEK": {
+                                "icon": "issue-draft"
+                            },
+                            "FUTURE": {
+                                "icon": "issue-draft"
+                            },
                             "BUG": {
                                 "icon": "bug"
                             },
@@ -1195,6 +1211,7 @@
     },
     "dependencies": {
         "@primer/octicons": "^17.0.0",
+        "chokidar": "^3.6.0",
         "comment-patterns": "^0.10.1",
         "fast-strftime": "^1.1.1",
         "find": "^0.3.0",
