@@ -584,10 +584,10 @@ class TreeNodeProvider
 
     formatDateTags( label ) {
         const tagMappings = {
-            "0-OVERDUE": "0-OD",
-            "1-TODAY": "1-TY",
-            "2-THIS_WEEK": "2-WK",
-            "3-FUTURE": "3-FT"
+            "0-OVERDUE": "",
+            "1-TODAY": "",
+            "2-THIS_WEEK": "",
+            "3-FUTURE": ""
         };
         let result = "";
 
