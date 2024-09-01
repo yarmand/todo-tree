@@ -597,7 +597,7 @@ class TreeNodeProvider
                 result = formattedTag + label.slice(tag.length);
             }
         }
-        result = result.replace(/\[ \] */g, ':');
+        result = result.replace(/\[ \] */g, '');
         return result;
     }
 
