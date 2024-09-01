@@ -582,6 +582,25 @@ class TreeNodeProvider
         return node.parent;
     }
 
+    formatDateTags( label ) {
+        const tagMappings = {
+            "0-OVERDUE": "0-OD",
+            "1-TODAY": "1-TY",
+            "2-THIS_WEEK": "2-WK",
+            "3-FUTURE": "3-FT"
+        };
+        let result = "";
+
+        for (const tag in tagMappings) {
+            if (label.startsWith(tag)) {
+                const formattedTag = tagMappings[tag];
+                result = formattedTag + label.slice(tag.length);
+            }
+        }
+        result = result.replace(/\[ \] */g, ':');
+        return result;
+    }
+
     getTreeItem( node )
     {
         var treeItem;
@@ -703,6 +722,8 @@ class TreeNodeProvider
                 {
                     treeItem.label = utils.formatLabel( format, node ) + ( node.pathLabel ? ( " " + node.pathLabel ) : "" );
                 }
+
+                treeItem.label = this.formatDateTags(treeItem.label);
 
                 var revealBehaviour = vscode.workspace.getConfiguration( 'todo-tree.general' ).get( 'revealBehaviour' );
 

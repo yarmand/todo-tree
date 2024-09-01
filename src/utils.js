@@ -265,8 +265,9 @@ function extractTag( text, matchOffset )
     }
 
     const dateRegex = /\d{4}-\d{1,2}-\d{2}/;
+    var tagToPrint = originalTag;
     let dateMatch = dateRegex.exec( text );
-    if (dateMatch) {
+    if (tagMatch && dateMatch) {
         var dTag;
         var tagDate = new Date(`${dateMatch[0]} 0:0:0`);
         var today = new Date();
@@ -281,10 +282,10 @@ function extractTag( text, matchOffset )
         } else {
             dTag = "3-FUTURE";
         }
-        originalTag = dTag;
+        tagToPrint = `${dTag}${originalTag}`;
     }
     return {
-        tag: tagMatch ? originalTag : "",
+        tag: tagMatch ? tagToPrint : "",
         withoutTag: text,
         before: before,
         after: after,
