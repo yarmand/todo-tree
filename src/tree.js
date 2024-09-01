@@ -589,7 +589,7 @@ class TreeNodeProvider
             "2-THIS_WEEK": "",
             "3-FUTURE": ""
         };
-        let result = "";
+        let result = label;
 
         for (const tag in tagMappings) {
             if (label.startsWith(tag)) {
